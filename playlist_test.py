@@ -4,7 +4,7 @@ from memory_profiler import profile
 import os
 
 
-@profile
+#@profile
 def build_playlist(linked_list, canciones):
     for i, cancion in enumerate(canciones):
         node = Node(data=i+1, song=cancion["song"], artist=cancion["artist"], album=cancion["album"])
