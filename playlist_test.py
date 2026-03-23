@@ -32,7 +32,8 @@ def show(node):
     print(f"  ⏮  {prev_name[:25]}")
     print(f"  ⏭  {next_name[:25]}")
     print("=" * 45)
-    print("  [n] siguiente  [p] anterior")
+    print("[sh] shuffle ")
+    print("  [n] siguiente  [p] anterior  ")
     print("  [s] buscar     [q] salir")
     print("=" * 45)
 
@@ -41,16 +42,24 @@ while True:
     cmd = input("  > ").strip().lower()
 
     if cmd == 'n':
-        if current.next:
-            current = current.next
+        result = ll.next_node(current)  
+        if result:                       
+            current = result             
         else:
             input("  Ya estás en la última canción. Enter para continuar...")
 
     elif cmd == 'p':
-        if current.prev:
-            current = current.prev
+        result = ll.prev_node(current)  
+        if result:                       
+            current = result             
         else:
             input("  Ya estás en la primera canción. Enter para continuar...")
+
+
+    elif cmd == 'sh':                                          
+        ll.toggle_shuffle(current)                             
+        estado = "ON 🔀" if ll.shuffle else "OFF"              
+        input(f"  Shuffle {estado}. Enter para continuar...")  
 
     elif cmd == 's':
         query = input("  Número de canción: ").strip()

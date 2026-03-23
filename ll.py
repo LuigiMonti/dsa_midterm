@@ -1,5 +1,5 @@
 from typing import Any, Optional, Iterator
-
+import random
 
 class Node:
     def __init__(self, data: Any, song, album, artist) -> None:
@@ -18,6 +18,9 @@ class Node:
 class LinkedList: 
     def __init__(self) -> None:
         self.start: Optional[Node] = None
+        self.shuffle: bool = False
+        self._shuffle_order: list = []    
+        self._shuffle_index: int = 0 
 
     def __repr__(self) -> str:
         nodes = []
@@ -101,3 +104,30 @@ class LinkedList:
             if node.data == element_data:
                 return node
         return None
+    
+    def toggle_shuffle(self, current_node: Node) -> None:  
+        self.shuffle = not self.shuffle
+        if self.shuffle:
+            nodes = list(self)
+            random.shuffle(nodes)
+            self._shuffle_order = nodes
+            self._shuffle_index = self._shuffle_order.index(current_node)
+        else:
+            self._shuffle_order = []
+            self._shuffle_index = 0
+
+    def next_node(self, current_node: Node) -> Optional[Node]:  
+        if self.shuffle:
+            if self._shuffle_index < len(self._shuffle_order) - 1:
+                self._shuffle_index += 1
+                return self._shuffle_order[self._shuffle_index]
+            return None
+        return current_node.next
+
+    def prev_node(self, current_node: Node) -> Optional[Node]:  
+        if self.shuffle:
+            if self._shuffle_index > 0:
+                self._shuffle_index -= 1
+                return self._shuffle_order[self._shuffle_index]
+            return None
+        return current_node.prev
