@@ -1,13 +1,17 @@
 from ll import LinkedList, Node
 from playlist import canciones
+from memory_profiler import profile
 import os
 
 
+@profile
+def build_playlist(linked_list, canciones):
+    for i, cancion in enumerate(canciones):
+        node = Node(data=i+1, song=cancion["song"], artist=cancion["artist"], album=cancion["album"])
+        linked_list.insert_at_end(node)
 
 ll = LinkedList()
-for i, cancion in enumerate(canciones):
-    node = Node(data=i+1, song=cancion["song"], artist=cancion["artist"], album=cancion["album"])
-    ll.insert_at_end(node)
+build_playlist(ll, canciones)
 
 current = ll.start
 
