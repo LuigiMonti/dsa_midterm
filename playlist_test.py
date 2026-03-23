@@ -4,7 +4,7 @@ from memory_profiler import profile
 import os
 
 
-#@profile
+@profile
 def build_playlist(linked_list, canciones):
     for i, cancion in enumerate(canciones):
         node = Node(data=i+1, song=cancion["song"], artist=cancion["artist"], album=cancion["album"])
@@ -17,7 +17,7 @@ current = ll.start
 
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
-
+'''
 def show(node):
     clear()
     print("=" * 45)
@@ -36,7 +36,7 @@ def show(node):
     print("  [n] siguiente  [p] anterior  ")
     print("  [s] buscar     [q] salir")
     print("=" * 45)
-
+'''
 while True:
     show(current)
     cmd = input("  > ").strip().lower()
